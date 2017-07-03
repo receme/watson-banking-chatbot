@@ -47,67 +47,67 @@ var ConversationPanel = (function() {
         }
 
         function setupInputBox() {
-            var input = document.getElementById('textInput');
-            var dummy = document.getElementById('textInputDummy');
+            //var input = document.getElementById('textInput');
+            //var dummy = document.getElementById('textInputDummy');
             var padding = 3;
 
-            if (dummy === null) {
-                var dummyJson = {
-                    'tagName': 'div',
-                    'attributes': [{
-                        'name': 'id',
-                        'value': 'textInputDummy'
-                    }]
-                };
+            // if (dummy === null) {
+            //     var dummyJson = {
+            //         'tagName': 'div',
+            //         'attributes': [{
+            //             'name': 'id',
+            //             'value': 'textInputDummy'
+            //         }]
+            //     };
 
-                dummy = Common.buildDomElement(dummyJson);
-                ['font-size', 'font-style', 'font-weight', 'font-family', 'line-height', 'text-transform', 'letter-spacing'].forEach(function(index) {
-                    dummy.style[index] = window.getComputedStyle(input, null).getPropertyValue(index);
-                });
+            //     dummy = Common.buildDomElement(dummyJson);
+            //     ['font-size', 'font-style', 'font-weight', 'font-family', 'line-height', 'text-transform', 'letter-spacing'].forEach(function(index) {
+            //         dummy.style[index] = window.getComputedStyle(input, null).getPropertyValue(index);
+            //     });
 
-                document.body.appendChild(dummy);
-            }
+            //     document.body.appendChild(dummy);
+            // }
 
-            input.addEventListener('input', function() {
-                if (this.value === '') {
-                    this.classList.remove('underline');
-                    this.setAttribute('style', 'width:' + '100%');
-                    this.style.width = '100%';
-                } else {
-                    this.classList.add('underline');
-                    var txtNode = document.createTextNode(this.value);
-                    dummy.textContent = txtNode.textContent;
-                    var widthValue = (dummy.offsetWidth + padding) + 'px';
-                    this.setAttribute('style', 'width:' + widthValue);
-                    this.style.width = widthValue;
-                }
-            });
+            // input.addEventListener('input', function() {
+            //     if (this.value === '') {
+            //         this.classList.remove('underline');
+            //         this.setAttribute('style', 'width:' + '100%');
+            //         this.style.width = '100%';
+            //     } else {
+            //         this.classList.add('underline');
+            //         var txtNode = document.createTextNode(this.value);
+            //         dummy.textContent = txtNode.textContent;
+            //         var widthValue = (dummy.offsetWidth + padding) + 'px';
+            //         this.setAttribute('style', 'width:' + widthValue);
+            //         this.style.width = widthValue;
+            //     }
+            // });
 
-            var sendBtn = document.getElementById('sendBtn');
-            sendBtn.addEventListener('click', function onClickSendBtn(event) {
+            // var sendBtn = document.getElementById('sendBtn');
+            // sendBtn.addEventListener('click', function onClickSendBtn(event) {
 
-                var inputchatbox = document.querySelector('.message_input');
-                // Submit on enter key, dis-allowing blank messages
-                if (inputchatbox.value) {
-                    // Retrieve the context from the previous server response
-                    var context;
-                    var latestResponse = Api.getResponsePayload();
-                    if (latestResponse) {
-                        context = latestResponse.context;
-                    }
+            //     var inputchatbox = document.querySelector('.message_input');
+            //     // Submit on enter key, dis-allowing blank messages
+            //     if (inputchatbox.value) {
+            //         // Retrieve the context from the previous server response
+            //         var context;
+            //         var latestResponse = Api.getResponsePayload();
+            //         if (latestResponse) {
+            //             context = latestResponse.context;
+            //         }
 
-                    // Send the user message
-                    Api.sendRequest(inputchatbox.value, context);
+            //         // Send the user message
+            //         Api.sendRequest(inputchatbox.value, context);
 
-                    // Clear input box for further messages
-                    inputchatbox.value = '';
-                    Common.fireEvent(inputchatbox, 'input');
-                } else {
-                    console.log(" no text added ");
-                }
-            });
+            //         // Clear input box for further messages
+            //         inputchatbox.value = '';
+            //         Common.fireEvent(inputchatbox, 'input');
+            //     } else {
+            //         console.log(" no text added ");
+            //     }
+            // });
 
-            Common.fireEvent(input, 'input');
+            //Common.fireEvent(input, 'input');
         }
 
         // Display a user or Watson message that has just been sent/received
@@ -143,7 +143,7 @@ var ConversationPanel = (function() {
                         console.log(btnString);
                         console.log(btnArray);
 
-                        responseHtml = message;
+                        responseHtml += message + "\n";
 
                         for (var i = 0; i < btnArray.length; i++) {
                             var buttonOption = btnArray[i];

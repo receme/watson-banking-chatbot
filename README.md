@@ -1,32 +1,3 @@
-[![Build Status](https://travis-ci.org/IBM/watson-banking-chatbot.svg?branch=master)](https://travis-ci.org/IBM/watson-banking-chatbot)
-![Bluemix Deployments](https://deployment-tracker.mybluemix.net/stats/3999122db8b59f04eecad8d229814d83/badge.svg)
-
-# Create a banking chatbot with FAQ discovery, anger detection and natural language understanding
-In this developer journey, we will create a chatbot using Node.js and Watson Conversation. The Conversation flow will be enhanced by using Natural Language Understanding to identify entities and using Tone Analyzer to detect customer emotions. For FAQs, a call to the Discovery service will use passage retrieval to pull answers from a collection of documents.
-
-When the reader has completed this journey, they will understand how to:
-
-* Create a chatbot that converses via a web UI using Watson Conversation and Node.js
-* Use Watson Discovery with passage retrieval to find answers in FAQ documents
-* Use Watson Tone Analyzer to detect emotion in a conversation
-* Identify entities with Watson Natural Language Understanding
-
-![](doc/source/images/architecture.png)
-
-## Flow
-1. The FAQ documents are added to the Discovery collection.
-2. The user interacts with a chatbot via the app UI.
-3. User input is processed with Tone Analyzer to detect anger. An anger score is added to the context.
-4. User input is processed with Natural Language Understanding (NLU). The context is enriched with NLU-detected entities and keywords (e.g., a location).
-5. The input and enriched context is sent to Conversation. Conversation recognizes intent, entities and dialog paths. It responds with a reply and/or action.
-6. Optionally, a requested action is performed by the app. This may include one of the following:
-   * Lookup additional information from bank services to append to the reply
-   * Use Discovery to reply with an answer from the FAQ documents
-
-## With Watson
-
-Want to take your Watson app to the next level? Looking to leverage Watson Brand assets? Join the [With Watson](https://www.ibm.com/watson/with-watson) program which provides exclusive brand, marketing, and tech resources to amplify and accelerate your Watson embedded commercial solution.
-
 ## Included components
 
 * [IBM Watson Conversation](https://www.ibm.com/watson/developercloud/conversation.html): Build, test and deploy a bot or virtual agent across mobile devices, messaging platforms, or even on a physical robot.
@@ -178,11 +149,10 @@ TONE_ANALYZER_PASSWORD=<add_tone_analyzer_password>
 
 # Sample output
 
-![](doc/source/images/sample_output.png)
+put screenshot here
 
 # Links
 
-* [Demo on Youtube](https://www.youtube.com/watch?v=Jxi7U7VOMYg)
 * [Watson Node.js SDK](https://github.com/watson-developer-cloud/node-sdk)
 * [Relevancy Training Demo Video](https://www.youtube.com/watch?v=8BiuQKPQZJk)
 * [Relevancy Training Demo Notebook](https://github.com/akmnua/relevancy_passage_bww)
@@ -203,8 +173,6 @@ service thay you may want to delete. Otherwise use the .env DISCOVERY_ENVIRONMEN
 the app which environment you want it to use. A collection will be created in this environment
 using the default configuration.
 
-# License
-[Apache 2.0](LICENSE)
 
 # Privacy Notice
 If using the `Deploy to Bluemix` button some metrics are tracked, the following
