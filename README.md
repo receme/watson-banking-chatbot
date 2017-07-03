@@ -8,10 +8,6 @@
 ## Featured technologies
 * [Node.js](https://nodejs.org/): An asynchronous event driven JavaScript runtime, designed to build scalable applications.
 
-# Watch the Video
-
-[![](http://img.youtube.com/vi/Jxi7U7VOMYg/0.jpg)](https://www.youtube.com/watch?v=Jxi7U7VOMYg)
-
 # Steps
 
 Use the ``Deploy to Bluemix`` button **OR** create the services and run locally.
