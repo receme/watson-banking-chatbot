@@ -1,0 +1,46 @@
+
+.no-padding {
+    padding: 0 !important;
+}
+.margin-left {
+    margin-left: 10px;
+}
+
+.light-margin-top {
+    margin-top: 0.5em;
+}
+
+.light-margin-vertical  {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.margin-vertical  {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.padding {
+    padding: 10px;
+}
+
+.sm-shadow {
+    -moz-box-shadow:    0px 1px 3px 0px rgba(0,0,0,.20);
+    -webkit-box-shadow: 0px 1px 3px 0px rgba(0,0,0,.20);
+    box-shadow:         0px 1px 3px 0px rgba(0,0,0,.20);
+}
+
+.no-margin-horizontal {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.btn-clear {
+    background-color: white;
+    color: #333;
+}
+
+.btn-round {
+    border-radius: 5em;
+}
+

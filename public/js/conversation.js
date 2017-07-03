@@ -8,8 +8,8 @@ var ConversationPanel = (function() {
         var settings = {
             selectors: {
                 chatBox: '#scrollingChat',
-                fromUser: '.from-user',
-                fromWatson: '.from-watson',
+                fromUser: '.bg-user',
+                fromWatson: '.bg-bot',
                 latest: '.latest'
             },
             authorTypes: {
@@ -124,24 +124,55 @@ var ConversationPanel = (function() {
                     textArray = [textArray];
                 }
 
-                var messageText = textArray[0];
+                var responseHtml = "";
 
-                if (isStringContains(messageText, "<button>")) {
+                textArray.forEach(function(element) {
 
-                    var startPos = messageText.indexOf("<button>");
-                    var endPos = messageText.indexOf("</button>");
+                    var messageText = element;
 
-                    var message = messageText.substring(0, startPos).trim();
-                    var btnString = messageText.substring(startPos + 8, endPos).trim();
-                    var btnArray = btnString.split(",");
+                    if (isStringContains(messageText, "<button>")) {
 
-                    console.log(message);
-                    console.log(btnString);
-                    console.log(btnArray);
+                        var startPos = messageText.indexOf("<button>");
+                        var endPos = messageText.indexOf("</button>");
 
+                        var message = messageText.substring(0, startPos).trim();
+                        var btnString = messageText.substring(startPos + 8, endPos).trim();
+                        var btnArray = btnString.split(",");
+
+                        console.log(message);
+                        console.log(btnString);
+                        console.log(btnArray);
+
+                        responseHtml = message;
+
+                        for (var i = 0; i < btnArray.length; i++) {
+                            var buttonOption = btnArray[i];
+
+                            var btnHtml = "<a class='light-margin-vertical chat-bot-btn btn btn-clear btn-round btn-block btn-sm' "
+
+                            +" data-value=" + buttonOption + ">" +
+                                buttonOption +
+                                "</a>";
+
+                            responseHtml += btnHtml;
+                        }
+
+                        //appendBotText(responseHtml);
+
+                    } else {
+                        responseHtml += messageText;
+                    }
+
+                    responseHtml += "\n";
+
+                }, this);
+
+
+                if (isUser) {
+                    newPayload.input.text = responseHtml;
+                } else {
+                    newPayload.output.text = responseHtml;
                 }
-
-
 
                 // Create new message DOM element
                 var messageDivs = buildMessageDomElements(newPayload, isUser);
@@ -203,11 +234,11 @@ var ConversationPanel = (function() {
                     var messageJson = {
                         // <div class='segments'>
                         'tagName': 'div',
-                        'classNames': ['segments'],
+                        'classNames': ['segments', 'row'],
                         'children': [{
                             // <div class='from-user/from-watson latest'>
                             'tagName': 'div',
-                            'classNames': [(isUser ? 'from-user' : 'from-watson'), 'latest', ((messageArray.length === 0) ? 'top' : 'sub')],
+                            'classNames': [(isUser ? 'bg-user' : 'bg-bot'), (isUser ? 'pull-right' : 'pull-left'), 'latest', 'chat-bubble', ((messageArray.length === 0) ? 'top' : 'sub')],
                             'children': [{
                                 // <div class='message-inner'>
                                 'tagName': 'div',
@@ -227,6 +258,7 @@ var ConversationPanel = (function() {
             return messageArray;
         }
 
+
         // Scroll to the bottom of the chat window (to the most recent messages)
         // Note: this method will bring the most recent user message into view,
         //   even if the most recent message is from Watson.
@@ -243,24 +275,23 @@ var ConversationPanel = (function() {
         }
 
         // Handles the submission of input
-        function inputKeyDown(event, inputBox) {
+        function inputKeyDown(userText) {
 
             // Submit on enter key, dis-allowing blank messages
-            if (event.keyCode === 13 && inputBox.value) {
-                // Retrieve the context from the previous server response
-                var context;
-                var latestResponse = Api.getResponsePayload();
-                if (latestResponse) {
-                    context = latestResponse.context;
-                }
-
-                // Send the user message
-                Api.sendRequest(inputBox.value, context);
-
-                // Clear input box for further messages
-                inputBox.value = '';
-                Common.fireEvent(inputBox, 'input');
+            //if (event.keyCode === 13 && inputBox.value) {
+            // Retrieve the context from the previous server response
+            var context;
+            var latestResponse = Api.getResponsePayload();
+            if (latestResponse) {
+                context = latestResponse.context;
             }
+
+            // Send the user message
+            Api.sendRequest(userText, context);
+
+
+            //Common.fireEvent(null, 'input');
+            //}
         }
 
     }
