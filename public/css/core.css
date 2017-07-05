@@ -36,8 +36,9 @@
 }
 
 .btn-clear {
-    background-color: white;
-    color: #333;
+    background-color: none;
+    border: 1px solid;
+    border-color: #d68adf;
 }
 
 .btn-round {
