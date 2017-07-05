@@ -130,25 +130,23 @@ var ConversationPanel = (function() {
 
                     var messageText = element;
 
-                    if (isStringContains(messageText, "<button>")) {
+                    var buttonStartTag = "<button>";
+                    if (isStringContains(messageText, buttonStartTag)) {
 
-                        var startPos = messageText.indexOf("<button>");
+                        var startPos = messageText.indexOf(buttonStartTag);
                         var endPos = messageText.indexOf("</button>");
 
                         var message = messageText.substring(0, startPos).trim();
-                        var btnString = messageText.substring(startPos + 8, endPos).trim();
+                        var btnString = messageText.substring(startPos + buttonStartTag.length, endPos).trim();
                         var btnArray = btnString.split(",");
 
-                        console.log(message);
-                        console.log(btnString);
-                        console.log(btnArray);
+                        responseHtml += message;
 
-                        responseHtml += message + "\n";
-
+                        responseHtml += "<div class='btn-toolbar'>";
                         for (var i = 0; i < btnArray.length; i++) {
                             var buttonOption = btnArray[i];
 
-                            var btnHtml = "<a class='light-margin-vertical chat-bot-btn btn btn-clear btn-round btn-block btn-sm' "
+                            var btnHtml = "<a class='light-margin-vertical chat-bot-btn btn btn-clear btn-round btn-group btn-sm' "
 
                             +" data-value=" + buttonOption + ">" +
                                 buttonOption +
@@ -156,14 +154,16 @@ var ConversationPanel = (function() {
 
                             responseHtml += btnHtml;
                         }
-
-                        //appendBotText(responseHtml);
+                        responseHtml += "</div>";
 
                     } else {
                         responseHtml += messageText;
-                    }
 
-                    responseHtml += "\n";
+                        // add double new-line in-between paragraph; except last line
+                        if (textArray.indexOf(element) < textArray.length-1) {
+                        	responseHtml += "<br/><br/>"
+                        }
+                    }
 
                 }, this);
 
